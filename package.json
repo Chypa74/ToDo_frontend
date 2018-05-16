@@ -1,9 +1,16 @@
 {
-  "name": "ToDo_frontend",
-  "version": "1.0.0",
-  "description": "Bachelor's project. Creation of a client-server web application on the technologies of the react and nodejs. And also the use of logux",
-  "main": "index.js",
-  "author": "Dmitry Shuvalov <mitiashuv74@mail.ru>",
-  "license": "MIT",
-  "private": false
+  "name": "todo_frontend",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "react": "^16.3.2",
+    "react-dom": "^16.3.2",
+    "react-scripts": "1.1.4"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
 }
