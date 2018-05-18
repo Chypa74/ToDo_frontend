@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import * as TodoActions from '../../actions/';
 import { bindActionCreators } from 'redux';
 import TodoCardText from '../TodoCardText';
-import isEqual from 'lodash/isEqual';
 import Input from '../Input';
 import debounce from '../../functions/debounce';
 import { makeGetCurrentTodo } from '../../selectors';

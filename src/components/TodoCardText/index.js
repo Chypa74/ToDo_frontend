@@ -45,7 +45,6 @@ class TodoCardText extends Component {
 
   render() {
     let { text } = this.state;
-    console.log(this.props);
     return (
       <div className="TodoCardText__wrapper">
         <div className="TodoCardText__title">Описание</div>
@@ -62,6 +61,13 @@ class TodoCardText extends Component {
   }
 }
 
-TodoCardText.propTypes = {};
+TodoCardText.propTypes = {
+  currentTodo: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    completed: PropTypes.bool.isRequired,
+    title: PropTypes.string.isRequired,
+    text: PropTypes.string
+  })
+};
 
 export default TodoCardText;

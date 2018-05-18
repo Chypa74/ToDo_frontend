@@ -12,8 +12,6 @@ class Root extends Component {
   }
 
   render() {
-    console.log(this.store.getState());
-    console.log(this.props.history);
     return (
       <Provider store={this.store}>
         <ConnectedRouter history={this.props.history}>

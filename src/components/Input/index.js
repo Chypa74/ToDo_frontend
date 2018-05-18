@@ -1,8 +1,5 @@
 import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import isEqual from 'lodash/isEqual';
-import AutosizeInput from 'react-input-autosize';
 import './Input.css';
 
 export default class Input extends PureComponent {

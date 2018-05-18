@@ -13,7 +13,8 @@ const Textarea = ({ inputRef, className, ...props }) => (
 );
 
 Textarea.propTypes = {
-  // TODO:
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired
 };
 
 export default Textarea;
