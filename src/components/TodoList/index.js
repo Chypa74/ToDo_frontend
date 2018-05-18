@@ -6,10 +6,10 @@ import * as TodoActions from '../../actions';
 import TodoItem from '../TodoItem';
 import { getVisibleTodos } from '../../selectors';
 
-const TodoList = ({ filteredTodos, actions }) => (
+const TodoList = ({ filteredTodos, todoActions }) => (
   <ul className="todo-list">
     {filteredTodos.map(todo => (
-      <TodoItem key={todo.id} todo={todo} {...actions} />
+      <TodoItem key={todo.id} todo={todo} todoActions={todoActions} />
     ))}
   </ul>
 );
@@ -19,10 +19,10 @@ TodoList.propTypes = {
     PropTypes.shape({
       id: PropTypes.number.isRequired,
       completed: PropTypes.bool.isRequired,
-      text: PropTypes.string.isRequired
+      title: PropTypes.string.isRequired
     }).isRequired
   ).isRequired,
-  actions: PropTypes.object.isRequired
+  todoActions: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -30,7 +30,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators(TodoActions, dispatch)
+  todoActions: bindActionCreators(TodoActions, dispatch)
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TodoList);
