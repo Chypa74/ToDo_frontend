@@ -52,7 +52,6 @@ class TodoCard extends Component {
       currentTodo: { id }
     } = this.props;
     let newTitle = event.target.value;
-    console.log(newTitle);
     this.setState(prevState => {
       return { ...prevState, title: newTitle };
     });
@@ -62,7 +61,8 @@ class TodoCard extends Component {
   render() {
     let { title } = this.state;
     let {
-      currentTodo: { text }
+      currentTodo,
+      todoActions: { editTodoText }
     } = this.props;
     return (
       <div className="main TodoCard__block">
@@ -75,7 +75,7 @@ class TodoCard extends Component {
           />
         </div>
         <div className="TodoCard__workspace">
-          <TodoCardText text={text ? text : ''} />
+          <TodoCardText currentTodo={currentTodo} editTodoText={editTodoText} />
         </div>
       </div>
     );

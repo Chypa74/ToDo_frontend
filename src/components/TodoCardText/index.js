@@ -1,26 +1,51 @@
 import React, { Component } from 'react';
 import Textarea from '../Textarea';
 import PropTypes from 'prop-types';
+import debounce from '../../functions/debounce';
 import './TodoCardText.css';
 
 class TodoCardText extends Component {
   constructor(props) {
     super(props);
+    let {
+      currentTodo: { text = '' }
+    } = props;
     this.state = {
-      text: props.text
+      text: text
     };
+    this.sendChangeDebounced = debounce(this.sendChange, 1000);
   }
 
+  sendChange = ({ text: nextText, id }) => {
+    let {
+      editTodoText,
+      currentTodo: { text: prevText }
+    } = this.props;
+    nextText = nextText.trim();
+    if (nextText === prevText) {
+      return;
+    }
+    if (nextText) {
+      editTodoText({ text: nextText, id });
+    } else {
+      editTodoText({ text: '', id });
+    }
+  };
+
   handleChange = event => {
+    let {
+      currentTodo: { id }
+    } = this.props;
     let newText = event.target.value;
-    console.log(newText);
     this.setState(prevState => {
       return { ...prevState, text: newText };
     });
+    this.sendChangeDebounced({ text: newText, id });
   };
 
   render() {
     let { text } = this.state;
+    console.log(this.props);
     return (
       <div className="TodoCardText__wrapper">
         <div className="TodoCardText__title">Описание</div>

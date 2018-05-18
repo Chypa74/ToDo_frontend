@@ -2,6 +2,7 @@ import {
   ADD_TODO,
   DELETE_TODO,
   EDIT_TODO_TITLE,
+  EDIT_TODO_TEXT,
   COMPLETE_TODO,
   COMPLETE_ALL_TODOS,
   CLEAR_COMPLETED
@@ -42,7 +43,10 @@ export default function todos(state = initialState, action) {
         todo =>
           todo.id === action.id ? { ...todo, title: action.title } : todo
       );
-
+    case EDIT_TODO_TEXT:
+      return state.map(
+        todo => (todo.id === action.id ? { ...todo, text: action.text } : todo)
+      );
     case COMPLETE_TODO:
       return state.map(
         todo =>
