@@ -1,0 +1,14 @@
+.TodoCard {
+  &__block {
+    padding: 20px;
+  }
+
+  &__title {
+    font-weight: 700;
+    margin-bottom: 15px;
+
+    &-text {
+      font-size: 22px;
+    }
+  }
+}
