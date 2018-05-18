@@ -58,6 +58,11 @@ class TodoCard extends Component {
     this.sendChangeDebounced({ title: newTitle, id });
   };
 
+  handleCloseCard = () => {
+    let { history } = this.props;
+    history.push('/');
+  };
+
   render() {
     let { title } = this.state;
     let {
@@ -74,6 +79,7 @@ class TodoCard extends Component {
             onChange={this.handleChangeTitle}
           />
         </div>
+        <div className="TodoCard__exit-icon" onClick={this.handleCloseCard} />
         <div className="TodoCard__workspace">
           <TodoCardText currentTodo={currentTodo} editTodoText={editTodoText} />
         </div>

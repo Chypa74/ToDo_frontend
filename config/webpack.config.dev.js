@@ -172,6 +172,7 @@ module.exports = {
                   ident: 'postcss',
                   plugins: () => [
                     require('postcss-import'),
+                    require('postcss-mixins')(),
                     require('postcss-cssnext')({
                       features: {
                         nesting: false

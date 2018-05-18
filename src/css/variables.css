@@ -1,68 +1,16 @@
 @custom-media --mobile (width <= 620px);
 
-:root {
-  --main: rgb(0, 112, 186);
-  --gray: #dfdfdf;
-  --accent: rgb(726, 72, 69);
-  --green: rgb(14, 166, 77);
+@define-mixin wide-click-area $top: 10px, $right: 10px, $bottom: 10px,
+  $left: 10px {
+  position: relative;
 
-  /* app background color */
-  --app-background: rgb(243, 245, 246);
-
-  --white: #ffffff;
-
-  /* color for primary content */
-  --black: #000000;
-
-  /* color for secondary content and hover */
-  --black-light: rgba(0, 0, 0, 0.7);
-
-  /* main color */
-  --main-hover: rgb(0, 153, 210);
-
-  /* color for background */
-  --main-light: rgba(1, 169, 224, 0.07);
-
-  /* color for hover */
-  --trigger-hover: rgba(34, 167, 228, 0.3);
-
-  /* logo color */
-
-  /* color for word "Editing" */
-  --purple: #8f5fae;
-
-  /* color for errors */
-  --error: rgb(231, 76, 60);
-
-  /* color for no active text */
-  --gray-t: #98a6ad;
-
-  /* EventName component background color */
-  --gray-background: #f6f8f8;
-
-  /* colors for audio and video player */
-
-  /* audio, video, logo */
-  --darkgray: rgb(74, 74, 74);
-
-  /* color for app background */
-  --gray-light: #f6f6f6;
-
-  /* color at the stats filter */
-
-  /* background in the ProfileAside for superuser */
-  --superuser-background: linear-gradient(
-    140deg,
-    color(var(--main) blackness(50%)) 20%,
-    color(var(--main) blackness(70%)) 100%
-  );
-
-  /* Not editable notification and product badge */
-  --notification-background: color(var(--main) tint(96%));
-  --notification-border: color(var(--main) a(0.2));
-
-  /* fonts */
-  --ptsans: 'PT Sans', sans-serif;
-  --sans: 'Helvetica Neue', Arial, sans-serif;
-  --gill-sans: 'Gill Sans', Helvetica, sans-serif;
+  &:after {
+    content: '';
+    position: absolute;
+    top: -$top;
+    bottom: -$bottom;
+    left: -$left;
+    right: -$right;
+    cursor: pointer;
+  }
 }
