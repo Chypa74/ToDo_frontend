@@ -13,11 +13,9 @@ class TodoCard extends Component {
   constructor(props) {
     super(props);
     let {
-      currentTodo: { text }
+      currentTodo: { title }
     } = props;
-    this.state = {
-      title: text
-    };
+    this.state = { title: title };
 
     this.sendChangeDebounced = debounce(this.sendChange, 1000);
   }
@@ -33,19 +31,19 @@ class TodoCard extends Component {
   //   }
   // }
 
-  sendChange = ({ text, id }) => {
+  sendChange = ({ title: nextTitle, id }) => {
     let {
-      todoActions: { editTodo },
-      currentTodo: { text: prevText }
+      todoActions: { editTodoTitle },
+      currentTodo: { title: prevTitle }
     } = this.props;
-    text = text.trim();
-    if (text === prevText) {
+    nextTitle = nextTitle.trim();
+    if (nextTitle === prevTitle) {
       return;
     }
-    if (text) {
-      editTodo({ text: text, id: id });
+    if (nextTitle) {
+      editTodoTitle({ title: nextTitle, id: id });
     } else {
-      editTodo({ text: '', id: id });
+      editTodoTitle({ title: '', id: id });
     }
   };
 
@@ -58,12 +56,14 @@ class TodoCard extends Component {
     this.setState(prevState => {
       return { ...prevState, title: newTitle };
     });
-    this.sendChangeDebounced({ text: newTitle, id });
+    this.sendChangeDebounced({ title: newTitle, id });
   };
 
   render() {
     let { title } = this.state;
-    console.log(this.props);
+    let {
+      currentTodo: { text }
+    } = this.props;
     return (
       <div className="main TodoCard__block">
         <div className="TodoCard__title">
@@ -75,7 +75,7 @@ class TodoCard extends Component {
           />
         </div>
         <div className="TodoCard__workspace">
-          <TodoCardText text={title ? title : ''} />
+          <TodoCardText text={text ? text : ''} />
         </div>
       </div>
     );
@@ -86,7 +86,6 @@ function makeMapStateToProps() {
   const getCurrentTodo = makeGetCurrentTodo();
   const mapStateToProps = (state, props) => {
     return {
-      todos: state.todos,
       currentTodo: getCurrentTodo(state, props)
     };
   };
