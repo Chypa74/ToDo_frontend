@@ -64,10 +64,7 @@ class TodoCard extends Component {
 
   render() {
     let { title } = this.state;
-    let {
-      currentTodo,
-      todoActions: { editTodoText }
-    } = this.props;
+    let { currentTodo, editTodoText } = this.props;
     return (
       <div className="main TodoCard__block">
         <div className="TodoCard__title">
@@ -98,7 +95,8 @@ function makeMapStateToProps() {
 }
 
 const mapDispatchToProps = dispatch => ({
-  todoActions: bindActionCreators(TodoActions, dispatch)
+  todoActions: bindActionCreators(TodoActions, dispatch),
+  editTodoText: bindActionCreators(TodoActions.editTodoText, dispatch.sync)
 });
 
 export default connect(makeMapStateToProps, mapDispatchToProps)(TodoCard);

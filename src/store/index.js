@@ -1,7 +1,10 @@
-import { createStore, applyMiddleware, compose } from 'redux';
+import { applyMiddleware, compose } from 'redux';
+import createLoguxCreator from 'logux-redux/create-logux-creator';
+
 import rootReducer from '../reducers';
 import createLogger from './logger';
 import { routerMiddleware } from 'react-router-redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
 
 let DEBUG = process.env.NODE_ENV !== 'production';
 
@@ -12,14 +15,16 @@ export default function configureStore(history, initialState) {
     Boolean
   );
 
-  let composeEnhancers = compose;
-  if (DEBUG && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) {
-    composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
-  }
+  const createStore = createLoguxCreator({
+    subprotocol: '1.0.0',
+    server: 'ws://localhost:1337',
+    userId: 10
+  });
+
   const store = createStore(
     rootReducer,
     initialState,
-    composeEnhancers(applyMiddleware(...middleware))
+    compose(applyMiddleware(...middleware))
   );
 
   if (module.hot) {
@@ -34,6 +39,6 @@ export default function configureStore(history, initialState) {
     //   store.dispatch({ type: 'SET_SAGAS', sagas: getNewSagas() });
     // });
   }
-
+  store.client.start();
   return store;
 }

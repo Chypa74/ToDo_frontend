@@ -19,11 +19,11 @@
     "css-loader": "0.28.7",
     "dotenv": "4.0.0",
     "dotenv-expand": "4.2.0",
-    "eslint": "4.10.0",
+    "eslint": "^4.19.1",
     "eslint-config-react-app": "^2.1.0",
     "eslint-loader": "1.9.0",
     "eslint-plugin-flowtype": "2.39.1",
-    "eslint-plugin-import": "2.8.0",
+    "eslint-plugin-import": "^2.12.0",
     "eslint-plugin-jsx-a11y": "5.1.1",
     "eslint-plugin-react": "7.4.0",
     "extract-text-webpack-plugin": "3.0.2",
@@ -32,6 +32,7 @@
     "history": "^4.7.2",
     "html-webpack-plugin": "2.29.0",
     "jest": "20.0.4",
+    "logux-redux": "^0.1.7",
     "object-assign": "4.1.1",
     "path-to-regexp": "^2.2.1",
     "postcss-cssnext": "^3.1.0",
@@ -47,6 +48,7 @@
     "react-dom": "^16.3.2",
     "react-hot-loader": "^4.2.0",
     "react-input-autosize": "^2.2.1",
+    "react-logux": "^0.1.1",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.2.2",
     "react-router-redux": "^5.0.0-alpha.9",
@@ -109,6 +111,11 @@
     ]
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": [
+      "react-app"
+    ]
+  },
+  "devDependencies": {
+    "redux-devtools-extension": "^2.13.2"
   }
 }

@@ -4,18 +4,19 @@ import Footer from '../Footer';
 import { connect } from 'react-redux';
 import TodoTextInput from '../TodoTextInput';
 import * as TodoActions from '../../actions';
+import { addTodo } from '../../actions/index';
 import { bindActionCreators } from 'redux';
 import { getCompletedTodoCount } from '../../selectors';
 import TodoList from '../TodoList';
 
-const MainSection = ({ todosCount, completedCount, actions }) => (
+const MainSection = ({ todosCount, completedCount, actions, addTodo }) => (
   <Fragment>
     <header className="header">
       <TodoTextInput
         newTodo
         onSave={title => {
           if (title.length !== 0) {
-            actions.addTodo(title);
+            addTodo(title);
           }
         }}
         placeholder="What needs to be done?"
@@ -56,7 +57,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators(TodoActions, dispatch)
+  actions: bindActionCreators(TodoActions, dispatch),
+  addTodo: bindActionCreators(addTodo, dispatch.sync)
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MainSection);
