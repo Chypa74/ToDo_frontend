@@ -1,6 +1,11 @@
 import * as types from '../constants/ActionTypes';
+import uuidv4 from 'uuid/v4';
 
-export const addTodo = title => ({ type: types.ADD_TODO, title });
+export const addTodo = action => ({
+  type: types.ADD_TODO,
+  title: action.title,
+  todoId: uuidv4()
+});
 
 export const deleteTodo = id => ({ type: types.DELETE_TODO, id });
 

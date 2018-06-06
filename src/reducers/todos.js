@@ -29,7 +29,7 @@ export default function todos(state = initialState, action) {
       return [
         ...state,
         {
-          id: state.reduce((maxId, todo) => Math.max(todo.id, maxId), -1) + 1,
+          todoId: action.todoId,
           completed: false,
           title: action.title
         }

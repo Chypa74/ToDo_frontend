@@ -14,10 +14,8 @@ const MainSection = ({ todosCount, completedCount, actions, addTodo }) => (
     <header className="header">
       <TodoTextInput
         newTodo
-        onSave={title => {
-          if (title.length !== 0) {
-            addTodo(title);
-          }
+        onSave={action => {
+          addTodo(action);
         }}
         placeholder="What needs to be done?"
       />
@@ -58,7 +56,10 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(TodoActions, dispatch),
-  addTodo: bindActionCreators(addTodo, dispatch.sync)
+  addTodo: action => dispatch.sync(addTodo(action), { reasons: ['newTodo'] })
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(MainSection);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(MainSection);
