@@ -17,7 +17,7 @@ export const editTodoTitle = action => ({
 
 export const editTodoText = action => ({
   type: types.EDIT_TODO_TEXT,
-  id: action.id,
+  todoId: action.todoId,
   text: action.text
 });
 

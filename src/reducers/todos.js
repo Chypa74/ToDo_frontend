@@ -34,7 +34,8 @@ export default function todos(state = initialState, action) {
       );
     case EDIT_TODO_TEXT:
       return state.map(
-        todo => (todo.id === action.id ? { ...todo, text: action.text } : todo)
+        todo =>
+          todo.todoId === action.todoId ? { ...todo, text: action.text } : todo
       );
     case COMPLETE_TODO:
       return state.map(

@@ -16,31 +16,28 @@ class TodoCardText extends Component {
     this.sendChangeDebounced = debounce(this.sendChange, 1000);
   }
 
-  sendChange = ({ text: nextText, id }) => {
+  sendChange = ({ newText: text, todoId }) => {
     let {
       editTodoText,
       currentTodo: { text: prevText }
     } = this.props;
-    nextText = nextText.trim();
-    if (nextText === prevText) {
-      return;
-    }
-    if (nextText) {
-      editTodoText({ text: nextText, id });
+    text = text.trim();
+    if (text.length !== 0) {
+      editTodoText({ text, todoId });
     } else {
-      editTodoText({ text: '', id });
+      editTodoText({ text: '', todoId });
     }
   };
 
   handleChange = event => {
     let {
-      currentTodo: { id }
+      currentTodo: { todoId }
     } = this.props;
     let newText = event.target.value;
     this.setState(prevState => {
       return { ...prevState, text: newText };
     });
-    this.sendChangeDebounced({ text: newText, id });
+    this.sendChangeDebounced({ newText, todoId });
   };
 
   render() {
@@ -63,7 +60,7 @@ class TodoCardText extends Component {
 
 TodoCardText.propTypes = {
   currentTodo: PropTypes.shape({
-    id: PropTypes.number.isRequired,
+    todoId: PropTypes.string.isRequired,
     completed: PropTypes.bool.isRequired,
     title: PropTypes.string.isRequired,
     text: PropTypes.string

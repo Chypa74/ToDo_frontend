@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import * as TodoActions from '../../actions/';
-import { bindActionCreators } from 'redux';
 import TodoCardText from '../TodoCardText';
 import Input from '../Input';
-import { editTodoTitle } from '../../actions';
+import { editTodoTitle, editTodoText } from '../../actions';
 import debounce from '../../functions/debounce';
 import { makeGetCurrentTodo } from '../../selectors';
 import './TodoCard.css';
@@ -26,9 +24,6 @@ class TodoCard extends Component {
       currentTodo: { title: prevTitle }
     } = this.props;
     title = title.trim();
-    if (title === prevTitle) {
-      return;
-    }
     if (title.length !== 0) {
       dispatch.sync(editTodoTitle({ title, todoId }), {
         reasons: ['editTodoTitle']
@@ -54,7 +49,7 @@ class TodoCard extends Component {
 
   render() {
     let { title } = this.state;
-    let { currentTodo, editTodoText } = this.props;
+    let { currentTodo, dispatch } = this.props;
     return (
       <div className="main TodoCard__block">
         <div className="TodoCard__title">
@@ -67,7 +62,12 @@ class TodoCard extends Component {
         </div>
         <div className="TodoCard__exit-icon" onClick={this.handleCloseCard} />
         <div className="TodoCard__workspace">
-          <TodoCardText currentTodo={currentTodo} editTodoText={editTodoText} />
+          <TodoCardText
+            currentTodo={currentTodo}
+            editTodoText={action =>
+              dispatch.sync(editTodoText(action), { reasons: ['editTodoText'] })
+            }
+          />
         </div>
       </div>
     );
