@@ -5,6 +5,9 @@ import rootReducer from '../reducers';
 import createLogger from './logger';
 import { routerMiddleware } from 'react-router-redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
+import badgeMessages from 'logux-status/badge/en';
+import badgeStyles from 'logux-status/badge/default';
+import badge from 'logux-status/badge';
 
 let DEBUG = process.env.NODE_ENV !== 'production';
 
@@ -39,6 +42,12 @@ export default function configureStore(history, initialState) {
     //   store.dispatch({ type: 'SET_SAGAS', sagas: getNewSagas() });
     // });
   }
+
+  badge(store.client, {
+    position: 'top-left',
+    messages: badgeMessages,
+    styles: badgeStyles
+  });
   store.client.start();
   return store;
 }

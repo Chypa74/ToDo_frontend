@@ -4,6 +4,7 @@ import MainSection from '../MainSection';
 import TodoCard from '../TodoCard';
 import getParams from '../../functions/getParams';
 import { paths } from '../../constants/paths';
+import subscribe from 'react-logux/subscribe';
 
 class App extends Component {
   render() {
