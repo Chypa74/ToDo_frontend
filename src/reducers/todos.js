@@ -50,7 +50,9 @@ export default function todos(state = initialState, action) {
     case COMPLETE_TODO:
       return state.map(
         todo =>
-          todo.id === action.id ? { ...todo, completed: !todo.completed } : todo
+          todo.todoId === action.todoId
+            ? { ...todo, completed: action.completed }
+            : todo
       );
 
     case COMPLETE_ALL_TODOS:

@@ -18,6 +18,14 @@ class TodoItem extends Component {
     history.push(`/todo/${id}`);
   };
 
+  handleCompleteTodo(todo) {
+    let { dispatch } = this.props;
+    let { todoId, completed: prevCompletedValue } = todo;
+    dispatch.sync(completeTodo({ todoId, completed: !prevCompletedValue }), {
+      reasons: ['completeTodo']
+    });
+  }
+
   render() {
     const {
       todo,
@@ -31,7 +39,7 @@ class TodoItem extends Component {
           className="toggle"
           type="checkbox"
           checked={todo.completed}
-          onChange={() => dispatch(completeTodo(todo.todoId))}
+          onChange={this.handleCompleteTodo.bind(this, todo)}
         />
         <label onClick={this.handleDoubleClick}>{todo.title}</label>
         <button

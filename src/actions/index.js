@@ -21,7 +21,11 @@ export const editTodoText = action => ({
   text: action.text
 });
 
-export const completeTodo = id => ({ type: types.COMPLETE_TODO, id });
+export const completeTodo = action => ({
+  type: types.COMPLETE_TODO,
+  todoId: action.todoId,
+  completed: action.completed
+});
 
 export const completeAllTodos = () => ({ type: types.COMPLETE_ALL_TODOS });
 
