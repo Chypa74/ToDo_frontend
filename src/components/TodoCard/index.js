@@ -4,6 +4,7 @@ import * as TodoActions from '../../actions/';
 import { bindActionCreators } from 'redux';
 import TodoCardText from '../TodoCardText';
 import Input from '../Input';
+import { editTodoTitle } from '../../actions';
 import debounce from '../../functions/debounce';
 import { makeGetCurrentTodo } from '../../selectors';
 import './TodoCard.css';
@@ -19,42 +20,31 @@ class TodoCard extends Component {
     this.sendChangeDebounced = debounce(this.sendChange, 1000);
   }
 
-  // componentWillReceiveProps(nextProps) {
-  //   if (isEqual(nextProps.params, this.props.params)) { return; }
-  //   this.setState({
-  //     ...this.makeState(nextProps)
-  //   });
-
-  //   if (this._textarea) {
-  //     this._textarea.blur();
-  //   }
-  // }
-
-  sendChange = ({ title: nextTitle, id }) => {
+  sendChange = ({ newTitle: title, todoId }) => {
+    let { dispatch } = this.props;
     let {
-      todoActions: { editTodoTitle },
       currentTodo: { title: prevTitle }
     } = this.props;
-    nextTitle = nextTitle.trim();
-    if (nextTitle === prevTitle) {
+    title = title.trim();
+    if (title === prevTitle) {
       return;
     }
-    if (nextTitle) {
-      editTodoTitle({ title: nextTitle, id: id });
-    } else {
-      editTodoTitle({ title: '', id: id });
+    if (title.length !== 0) {
+      dispatch.sync(editTodoTitle({ title, todoId }), {
+        reasons: ['editTodoTitle']
+      });
     }
   };
 
   handleChangeTitle = event => {
     let {
-      currentTodo: { id }
+      currentTodo: { todoId }
     } = this.props;
     let newTitle = event.target.value;
     this.setState(prevState => {
       return { ...prevState, title: newTitle };
     });
-    this.sendChangeDebounced({ title: newTitle, id });
+    this.sendChangeDebounced({ newTitle, todoId });
   };
 
   handleCloseCard = () => {
@@ -94,9 +84,4 @@ function makeMapStateToProps() {
   return mapStateToProps;
 }
 
-const mapDispatchToProps = dispatch => ({
-  todoActions: bindActionCreators(TodoActions, dispatch),
-  editTodoText: bindActionCreators(TodoActions.editTodoText, dispatch.sync)
-});
-
-export default connect(makeMapStateToProps, mapDispatchToProps)(TodoCard);
+export default connect(makeMapStateToProps)(TodoCard);

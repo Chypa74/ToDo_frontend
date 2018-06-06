@@ -11,7 +11,7 @@ export const deleteTodo = todoId => ({ type: types.DELETE_TODO, todoId });
 
 export const editTodoTitle = action => ({
   type: types.EDIT_TODO_TITLE,
-  id: action.id,
+  todoId: action.todoId,
   title: action.title
 });
 
