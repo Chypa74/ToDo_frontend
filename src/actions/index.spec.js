@@ -5,7 +5,7 @@ describe('todo actions', () => {
   it('addTodo should create ADD_TODO action', () => {
     expect(actions.addTodo('Use Redux')).toEqual({
       type: types.ADD_TODO,
-      text: 'Use Redux'
+      title: 'Use Redux'
     });
   });
 
@@ -17,10 +17,12 @@ describe('todo actions', () => {
   });
 
   it('editTodo should create EDIT_TODO_TITLE action', () => {
-    expect(actions.editTodo(1, 'Use Redux everywhere')).toEqual({
+    expect(
+      actions.editTodoTitle({ id: 1, title: 'Use Redux everywhere' })
+    ).toEqual({
       type: types.EDIT_TODO_TITLE,
       id: 1,
-      text: 'Use Redux everywhere'
+      title: 'Use Redux everywhere'
     });
   });
 
