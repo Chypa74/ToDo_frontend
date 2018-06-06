@@ -4,12 +4,18 @@ import Footer from '../Footer';
 import { connect } from 'react-redux';
 import TodoTextInput from '../TodoTextInput';
 import * as TodoActions from '../../actions';
-import { addTodo } from '../../actions/index';
+import { addTodo, completeAllTodos } from '../../actions/index';
 import { bindActionCreators } from 'redux';
 import { getCompletedTodoCount } from '../../selectors';
 import TodoList from '../TodoList';
 
-const MainSection = ({ todosCount, completedCount, actions, addTodo }) => (
+const MainSection = ({
+  todosCount,
+  completedCount,
+  actions,
+  addTodo,
+  completeAllTodos
+}) => (
   <Fragment>
     <header className="header">
       <TodoTextInput
@@ -28,7 +34,7 @@ const MainSection = ({ todosCount, completedCount, actions, addTodo }) => (
             type="checkbox"
             checked={completedCount === todosCount}
           />
-          <label onClick={actions.completeAllTodos} />
+          <label onClick={completeAllTodos} />
         </span>
       ) : null}
       <TodoList />
@@ -56,7 +62,9 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(TodoActions, dispatch),
-  addTodo: action => dispatch.sync(addTodo(action), { reasons: ['newTodo'] })
+  addTodo: action => dispatch.sync(addTodo(action), { reasons: ['newTodo'] }),
+  completeAllTodos: action =>
+    dispatch.sync(completeAllTodos(), { reasons: ['completeAllTodos'] })
 });
 
 export default connect(
