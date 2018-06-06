@@ -4,7 +4,7 @@ import Footer from '../Footer';
 import { connect } from 'react-redux';
 import TodoTextInput from '../TodoTextInput';
 import * as TodoActions from '../../actions';
-import { addTodo, completeAllTodos } from '../../actions/index';
+import { addTodo, completeAllTodos, clearCompleted } from '../../actions/index';
 import { bindActionCreators } from 'redux';
 import { getCompletedTodoCount } from '../../selectors';
 import TodoList from '../TodoList';
@@ -14,7 +14,8 @@ const MainSection = ({
   completedCount,
   actions,
   addTodo,
-  completeAllTodos
+  completeAllTodos,
+  clearCompleted
 }) => (
   <Fragment>
     <header className="header">
@@ -42,7 +43,7 @@ const MainSection = ({
         <Footer
           completedCount={completedCount}
           activeCount={todosCount - completedCount}
-          onClearCompleted={actions.clearCompleted}
+          onClearCompleted={clearCompleted}
         />
       ) : null}
     </section>
@@ -64,7 +65,9 @@ const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(TodoActions, dispatch),
   addTodo: action => dispatch.sync(addTodo(action), { reasons: ['newTodo'] }),
   completeAllTodos: action =>
-    dispatch.sync(completeAllTodos(), { reasons: ['completeAllTodos'] })
+    dispatch.sync(completeAllTodos(), { reasons: ['completeAllTodos'] }),
+  clearCompleted: action =>
+    dispatch.sync(clearCompleted(), { reasons: ['clearCompleted'] })
 });
 
 export default connect(
