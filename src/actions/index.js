@@ -7,7 +7,7 @@ export const addTodo = action => ({
   todoId: uuidv4()
 });
 
-export const deleteTodo = id => ({ type: types.DELETE_TODO, id });
+export const deleteTodo = todoId => ({ type: types.DELETE_TODO, todoId });
 
 export const editTodoTitle = action => ({
   type: types.EDIT_TODO_TITLE,

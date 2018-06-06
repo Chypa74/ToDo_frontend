@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import classnames from 'classnames';
+import { deleteTodo, completeTodo } from '../../actions';
 import { withRouter } from 'react-router-dom';
 
 class TodoItem extends Component {
@@ -16,31 +18,28 @@ class TodoItem extends Component {
     history.push(`/todo/${id}`);
   };
 
-  // handleSave = (id, text) => {
-  //   let { todoActions: { deleteTodo} } = this.props;
-  //   if (text.length === 0) {
-  //     deleteTodo(id);
-  //   } else {
-  //     this.props.editTodo(id, text);
-  //   }
-  //   this.setState({ editing: false });
-  // };
-
   render() {
     const {
       todo,
-      todoActions: { completeTodo, deleteTodo }
+      dispatch
+      // todoActions: { completeTodo, deleteTodo }
     } = this.props;
+    console.log(this.props);
     let element = (
       <div className="view">
         <input
           className="toggle"
           type="checkbox"
           checked={todo.completed}
-          onChange={() => completeTodo(todo.id)}
+          onChange={() => dispatch(completeTodo(todo.todoId))}
         />
-        <label onDoubleClick={this.handleDoubleClick}>{todo.title}</label>
-        <button className="destroy" onClick={() => deleteTodo(todo.id)} />
+        <label onClick={this.handleDoubleClick}>{todo.title}</label>
+        <button
+          className="destroy"
+          onClick={() =>
+            dispatch.sync(deleteTodo(todo.todoId), { reasons: ['deleteTodo'] })
+          }
+        />
       </div>
     );
 
@@ -57,8 +56,7 @@ class TodoItem extends Component {
 }
 
 TodoItem.propTypes = {
-  todo: PropTypes.object.isRequired,
-  todoActions: PropTypes.object.isRequired
+  todo: PropTypes.object.isRequired
 };
 
-export default withRouter(TodoItem);
+export default withRouter(connect()(TodoItem));

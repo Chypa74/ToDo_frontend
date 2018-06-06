@@ -36,7 +36,7 @@ export default function todos(state = initialState, action) {
       ];
 
     case DELETE_TODO:
-      return state.filter(todo => todo.id !== action.id);
+      return state.filter(todo => todo.todoId !== action.todoId);
 
     case EDIT_TODO_TITLE:
       return state.map(
