@@ -13,9 +13,9 @@ class TodoItem extends Component {
   handleDoubleClick = () => {
     let {
       history,
-      todo: { id }
+      todo: { todoId }
     } = this.props;
-    history.push(`/todo/${id}`);
+    history.push(`/todo/${todoId}`);
   };
 
   handleCompleteTodo(todo) {
@@ -27,12 +27,7 @@ class TodoItem extends Component {
   }
 
   render() {
-    const {
-      todo,
-      dispatch
-      // todoActions: { completeTodo, deleteTodo }
-    } = this.props;
-    console.log(this.props);
+    let { todo, dispatch } = this.props;
     let element = (
       <div className="view">
         <input

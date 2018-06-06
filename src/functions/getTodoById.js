@@ -1,5 +1,4 @@
 export default (todos, id) => {
-  id = parseInt(id, 10);
-  let filtered = todos.filter(todo => todo.id === id);
+  let filtered = todos.filter(todo => todo.todoId === id);
   return filtered.length ? filtered[0] : null;
 };

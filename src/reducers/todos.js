@@ -8,20 +8,7 @@ import {
   CLEAR_COMPLETED
 } from '../constants/ActionTypes';
 
-const initialState = [
-  {
-    title: 'Redux',
-    text: 'Use Redux',
-    completed: false,
-    id: 0
-  },
-  {
-    title: 'React',
-    text: 'Use React',
-    completed: false,
-    id: 1
-  }
-];
+const initialState = [];
 
 export default function todos(state = initialState, action) {
   switch (action.type) {
