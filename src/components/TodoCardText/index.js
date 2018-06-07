@@ -1,26 +1,51 @@
 import React, { Component } from 'react';
 import Textarea from '../Textarea';
 import PropTypes from 'prop-types';
+import { isEqual } from 'lodash';
 import debounce from '../../functions/debounce';
 import './TodoCardText.css';
 
 class TodoCardText extends Component {
   constructor(props) {
     super(props);
-    let {
-      currentTodo: { text = '' }
-    } = props;
+
     this.state = {
-      text: text
+      text: ''
     };
+
     this.sendChangeDebounced = debounce(this.sendChange, 1000);
   }
 
+  componentDidMount() {
+    if (this.props.currentTodo) {
+      let {
+        currentTodo: { text }
+      } = this.props;
+      this.setState(prevState => {
+        return {
+          ...prevState,
+          text
+        };
+      });
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (!isEqual(this.props.currentTodo, nextProps.currentTodo)) {
+      let {
+        currentTodo: { text: nextText }
+      } = nextProps;
+      this.setState(prevState => {
+        return {
+          ...prevState,
+          text: nextText
+        };
+      });
+    }
+  }
+
   sendChange = ({ newText: text, todoId }) => {
-    let {
-      editTodoText,
-      currentTodo: { text: prevText }
-    } = this.props;
+    let { editTodoText } = this.props;
     text = text.trim();
     if (text.length !== 0) {
       editTodoText({ text, todoId });

@@ -13,7 +13,7 @@ const Textarea = ({ inputRef, className, ...props }) => (
 );
 
 Textarea.propTypes = {
-  value: PropTypes.string.isRequired,
+  value: PropTypes.string,
   onChange: PropTypes.func.isRequired
 };
 

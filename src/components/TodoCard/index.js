@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import TodoCardText from '../TodoCardText';
 import Input from '../Input';
+import { isEqual } from 'lodash';
 import { editTodoTitle, editTodoText } from '../../actions';
 import debounce from '../../functions/debounce';
 import { makeGetCurrentTodo } from '../../selectors';
@@ -10,12 +11,40 @@ import './TodoCard.css';
 class TodoCard extends Component {
   constructor(props) {
     super(props);
-    let {
-      currentTodo: { title }
-    } = props;
-    this.state = { title: title };
+
+    this.state = { title: '' };
 
     this.sendChangeDebounced = debounce(this.sendChange, 1000);
+  }
+
+  componentDidMount() {
+    if (this.props.currentTodo) {
+      let {
+        currentTodo: { title }
+      } = this.props;
+      this.setState(prevState => {
+        return {
+          ...prevState,
+          title
+        };
+      });
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (!isEqual(this.props, nextProps)) {
+      console.log('Обновляю');
+
+      let {
+        currentTodo: { title: nextTitle }
+      } = nextProps;
+      this.setState(prevState => {
+        return {
+          ...prevState,
+          title: nextTitle
+        };
+      });
+    }
   }
 
   sendChange = ({ newTitle: title, todoId }) => {
@@ -50,6 +79,7 @@ class TodoCard extends Component {
   render() {
     let { title } = this.state;
     let { currentTodo, dispatch } = this.props;
+    console.log('render');
     return (
       <div className="main TodoCard__block">
         <div className="TodoCard__title">
