@@ -40,7 +40,9 @@ class TodoItem extends Component {
         <button
           className="destroy"
           onClick={() =>
-            dispatch.sync(deleteTodo(todo.todoId), { reasons: ['deleteTodo'] })
+            dispatch.sync(deleteTodo(todo.todoId), {
+              reasons: ['deleteTodo']
+            })
           }
         />
       </div>

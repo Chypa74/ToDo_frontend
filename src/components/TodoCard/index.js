@@ -33,8 +33,6 @@ class TodoCard extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (!isEqual(this.props, nextProps)) {
-      console.log('Обновляю');
-
       let {
         currentTodo: { title: nextTitle }
       } = nextProps;
